@@ -4,13 +4,16 @@
 #include <GL/gl.h>
 using namespace std;
 
+// Screen Resolution
+int screenResX = GetSystemMetrics(SM_CXSCREEN);
+
 // Global Animation Parameters
 int animState = 1;
-float starDepth1Speed = 0.9;
-float starDepth2Speed = 0.8;
-float starDepth3Speed = 0.7;
-float rockSpeed = 0.5;
-float laserSpeed = 0.5;
+float starDepth1Speed = screenResX < 1920 ? 0.03 : 0.9;
+float starDepth2Speed = screenResX < 1920 ? 0.02 : 0.8;
+float starDepth3Speed = screenResX < 1920 ? 0.01 : 0.7;
+float rockSpeed = screenResX < 1920 ? 0.002 : 0.5;
+float laserSpeed = screenResX < 1920 ? 0.002 : 0.5;
 
 // Global Parameters
 long long startTime = time(NULL);
@@ -30,10 +33,10 @@ int rocketBoosting = 0;
 void resetSpeed()
 {
     rocketBoosting = 0;
-    starDepth1Speed = 0.9;
-    starDepth2Speed = 0.8;
-    starDepth3Speed = 0.7;
-    rockSpeed = 0.5;
+    starDepth1Speed = screenResX < 1920 ? 0.03 : 0.9;
+    starDepth2Speed = screenResX < 1920 ? 0.02 : 0.8;
+    starDepth3Speed = screenResX < 1920 ? 0.01 : 0.7;
+    rockSpeed = screenResX < 1920 ? 0.02 : 0.5;
 }
 
 void init(void)
@@ -243,26 +246,32 @@ void consoleOutput()
     cout << "5 -> Reset" << endl;
     cout << "6 -> Go Right" << endl;
     cout << "8 -> Boost ON" << endl;
-    cout << "0 -> Fire Laser" << endl;
+    cout << "0, SPACE -> Fire Laser" << endl;
     cout << endl
          << endl;
 
     if (animState == 0)
     {
-        cout << "     _______      ___      .___  ___.  _______            ______   ____    ____  _______ .______      " << endl;
-        cout << "    /  _____|    /   \\     |   \\/   | |   ____|          /  __  \\  \\   \\  /   / |   ____||   _  \\     " << endl;
-        cout << "   |  |  __     /  ^  \\    |  \\  /  | |  |__            |  |  |  |  \\   \\/   /  |  |__   |  |_)  |    " << endl;
-        cout << "   |  | |_ |   /  /_\\  \\   |  |\\/|  | |   __|           |  |  |  |   \\      /   |   __|  |      /     " << endl;
-        cout << "   |  |__| |  /  _____  \\  |  |  |  | |  |____          |  `--'  |    \\    /    |  |____ |  |\\  \\----." << endl;
-        cout << "    \\______| /__/     \\__\\ |__|  |__| |_______|          \\______/      \\__/     |_______|| _| `._____|" << endl;
-        cout << "                                                                                                      " << endl;
-        /*cout<<"   _____          __  __ ______    ______      ________ _____  "<<endl;
-        cout<<"  / ____|   /\\   |  \\/  |  ____|  / __ \\ \\    / /  ____|  __ \\ "<<endl;
-        cout<<" | |  __   /  \\  | \\  / | |__    | |  | \\ \\  / /| |__  | |__) |"<<endl;
-        cout<<" | | |_ | / /\\ \\ | |\\/| |  __|   | |  | |\\ \\/ / |  __| |  _  / "<<endl;
-        cout<<" | |__| |/ ____ \\| |  | | |____  | |__| | \\  /  | |____| | \\ \\ "<<endl;
-        cout<<"  \\_____/_/    \\_\\_|  |_|______|  \\____/   \\/   |______|_|  \\_\\"<<endl;
-        cout<<"                                                               "<<endl;*/
+        if (screenResX < 1920)
+        {
+            cout << "   _____          __  __ ______    ______      ________ _____  " << endl;
+            cout << "  / ____|   /\\   |  \\/  |  ____|  / __ \\ \\    / /  ____|  __ \\ " << endl;
+            cout << " | |  __   /  \\  | \\  / | |__    | |  | \\ \\  / /| |__  | |__) |" << endl;
+            cout << " | | |_ | / /\\ \\ | |\\/| |  __|   | |  | |\\ \\/ / |  __| |  _  / " << endl;
+            cout << " | |__| |/ ____ \\| |  | | |____  | |__| | \\  /  | |____| | \\ \\ " << endl;
+            cout << "  \\_____/_/    \\_\\_|  |_|______|  \\____/   \\/   |______|_|  \\_\\" << endl;
+            cout << "                                                               " << endl;
+        }
+        else
+        {
+            cout << "     _______      ___      .___  ___.  _______            ______   ____    ____  _______ .______      " << endl;
+            cout << "    /  _____|    /   \\     |   \\/   | |   ____|          /  __  \\  \\   \\  /   / |   ____||   _  \\     " << endl;
+            cout << "   |  |  __     /  ^  \\    |  \\  /  | |  |__            |  |  |  |  \\   \\/   /  |  |__   |  |_)  |    " << endl;
+            cout << "   |  | |_ |   /  /_\\  \\   |  |\\/|  | |   __|           |  |  |  |   \\      /   |   __|  |      /     " << endl;
+            cout << "   |  |__| |  /  _____  \\  |  |  |  | |  |____          |  `--'  |    \\    /    |  |____ |  |\\  \\----." << endl;
+            cout << "    \\______| /__/     \\__\\ |__|  |__| |_______|          \\______/      \\__/     |_______|| _| `._____|" << endl;
+            cout << "                                                                                                      " << endl;
+        }
     }
 }
 
