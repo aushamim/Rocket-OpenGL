@@ -280,18 +280,14 @@ void keyPressed(unsigned char key, int x, int y)
     if (key == '8' && animState == 1 && rocketBoosting == 0)
     {
         rocketBoosting = 1;
-        starDepth1Speed += 1.6;
-        starDepth2Speed += 1.6;
-        starDepth3Speed += 1.6;
-        rockSpeed += 1;
+        starDepth1Speed += screenResX < 1920 ? 0.04 : 1.6;
+        starDepth2Speed += screenResX < 1920 ? 0.04 : 1.6;
+        starDepth3Speed += screenResX < 1920 ? 0.04 : 1.6;
+        rockSpeed += screenResX < 1920 ? 0.03 : 1;
     }
     if (key == '2' && animState == 1 && rocketBoosting == 1)
     {
-        rocketBoosting = 0;
-        starDepth1Speed = 0.9;
-        starDepth2Speed = 0.8;
-        starDepth3Speed = 0.7;
-        rockSpeed = 0.5;
+        resetSpeed();
     }
     if (key == '4' && rocketX > 70 && animState == 1)
     {
@@ -434,14 +430,14 @@ void Draw()
     // Booster
     if (rocketBoosting == 1 && boostAvailable > 0 && animState == 1)
     {
-        boostAvailable -= 0.1;
+        boostAvailable -= screenResX < 1920 ? 0.002 : 0.1;
     }
     else
     {
         resetSpeed();
         if (boostAvailable < 100 && animState == 1)
         {
-            boostAvailable += 0.15;
+            boostAvailable += screenResX < 1920 ? 0.005 : 0.15;
         }
     }
 
